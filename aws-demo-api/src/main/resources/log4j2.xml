@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace" strict="true" name="XMLConfigTest"
+	packages="">
+	<Properties>
+	
+		<Property name="log-path">/tmp/aws-demo</Property>
+		<Property name="file-format">/tmp/aws-demo/aws_demo_root-%d{yyyy-MM-dd}-%i.log/
+		</Property>
+		
+	</Properties>
+	<Appenders>
+		<RollingFile name="locsightsLogger" fileName="${log-path}/locsights_root.log" filePattern="${file-format}">
+			<PatternLayout>
+				<pattern>%d{ABSOLUTE} %5p %c{1}:%L - %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="256 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+	
+	<Loggers>
+		<logger name="org.springframework" additivity="true" level="info">
+			<appender-ref ref="locsightsLogger" />
+		</logger>
+
+		<logger name="org.hibernate" additivity="true" level="error">
+			<appender-ref ref="locsightsLogger" />
+		</logger>
+
+		<AsyncRoot includeLocation="true" additivity="true" level="error">
+			<AppenderRef ref="locsightsLogger" />
+		</AsyncRoot>
+		
+		<AsyncRoot includeLocation="true" additivity="true" level="info">
+			<AppenderRef ref="locsightsLogger" />
+		</AsyncRoot>
+		
+		<AsyncRoot includeLocation="true" additivity="true" level="debug">
+			<AppenderRef ref="locsightsLogger" />
+		</AsyncRoot>
+
+		<Root level="error">
+			<AppenderRef ref="locsightsLogger" />
+		</Root>
+		<Root level="info">
+			<AppenderRef ref="locsightsLogger" />
+		</Root>
+		<Root level="debug">
+			<AppenderRef ref="locsightsLogger" />
+		</Root>
+	</Loggers>
+</Configuration> 
