@@ -16,6 +16,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
+<bean id="dropDownService" class="com.aws.demo.services.impl.DropDownServiceImpl" />
 	
 	
 	
