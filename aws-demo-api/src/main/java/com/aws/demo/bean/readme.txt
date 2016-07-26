@@ -1,1 +1,0 @@
-create bean classes in this folder
