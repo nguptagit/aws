@@ -17,6 +17,7 @@
 
 
 <bean id="dropDownService" class="com.aws.demo.services.impl.DropDownServiceImpl" />
+<bean id="ec2DetailService" class="com.aws.demo.services.impl.Ec2DetailServiceImpl" /> 
 	
 	
 	

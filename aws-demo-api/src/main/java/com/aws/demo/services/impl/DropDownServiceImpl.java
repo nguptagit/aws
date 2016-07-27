@@ -4,15 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import com.aws.demo.constant.AwsConstant;
 import com.aws.demo.services.DropDownService;
 
-@Configuration
-@PropertySource("classpath:config.properties")
+
 public class DropDownServiceImpl implements DropDownService{
 	
 	@Autowired
