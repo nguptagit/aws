@@ -10,5 +10,5 @@
 	<mvc:annotation-driven/>
 	<import resource="classpath:application-context.xml"/>
 	<context:component-scan base-package="com.aws.demo.controller"/>
-	<!-- <mvc:resources location="/WEB-INF/pages/" mapping="/static/**"/> -->
+	 <mvc:resources location="/WEB-INF/view/" mapping="/static/**"/> 
 </beans>
