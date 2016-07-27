@@ -37,8 +37,8 @@
                 };*/
 			 
 			 $scope.columnDefs = [
-					{ name:'instanceId', displayName:'Instance ID', width:100 },
-					{ name:'privateIP',displayName:'Private IP', width:100, pinnedLeft:true },
+					{ name:'instanceId', displayName:'Instance ID', width:250 },
+					{ name:'privateIP',displayName:'Private IP', width:150, pinnedLeft:true },
 					{ name:'state', width:150 },
 					{ name:'tags[0].value', displayName:'partner', width:150 },
 					{ name:'tags[1].value', displayName:'Team', width:150 },
