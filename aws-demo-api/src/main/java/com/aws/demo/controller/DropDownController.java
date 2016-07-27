@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aws.demo.services.DropDownService;
 
 @RestController
-@RequestMapping("/dropdowndata")
+@RequestMapping("/ec2/")
 public class DropDownController {
 	
 	
@@ -21,8 +21,8 @@ public class DropDownController {
 	private DropDownService dropDownService;
 
 	@ResponseStatus(value = org.springframework.http.HttpStatus.OK)
-	@RequestMapping (method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
-public Map<String, Map<String, String[]>>  getDashBoardDropDownData(){
+	@RequestMapping (value="/dropdowndata",method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
+     public Map<String, Map<String, String[]>>  getDashBoardDropDownData(){
 		
 		return dropDownService.getDashBoardDropDownData();
 	}
