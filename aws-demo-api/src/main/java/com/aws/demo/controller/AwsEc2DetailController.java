@@ -15,7 +15,7 @@ import com.aws.demo.bean.Ec2DetailsVO;
 import com.aws.demo.services.Ec2DetailService;
 
 @RestController
-@RequestMapping("/ec2/")
+@RequestMapping("/static/ec2/")
 public class AwsEc2DetailController {
 	
 	@Autowired 

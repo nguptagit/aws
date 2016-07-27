@@ -1,5 +1,5 @@
  
-  var cmsModule = angular.module('myCms', ['ngTouch', 'ui.grid', 'ui.grid.autoResize']);
+  var cmsModule = angular.module('myCms', ['ngTouch', 'ui.grid']);
 		  
 		  cmsModule.controller('CMSController', function($scope,$http) {
 			  
@@ -40,53 +40,65 @@
 					{ name:'instanceId', displayName:'Instance ID', width:100 },
 					{ name:'privateIP',displayName:'Private IP', width:100, pinnedLeft:true },
 					{ name:'state', width:150 },
-					{ name:'tags[0].region', displayName:'Region', width:150 },
-					{ name:'tags[1].Team', displayName:'Team', width:150 },
-					{ name:'tags[2].Partner', displayName:'partner', width:150 },
-					{ name:'tags[3].env', displayName:'Environment', width:150 },
+					{ name:'tags[0].value', displayName:'partner', width:150 },
+					{ name:'tags[1].value', displayName:'Team', width:150 },
+					{ name:'tags[2].value', displayName:'Environment', width:150 },
 				];	
 			
 				 
-			$scope.regionFilter = function() {
-				//alert( document.getElementById("region").value);				
-				$scope.gridOptions = [ {
-					"instanceId": "123",
-					"privateIP": "wwe",
-					"state":"Active",
-					"tags":[{"region":"Asia Pacific"},{"Team":"cms"},{"Partner":"HBO"},{"env":"dev"}]
-				},
-				{
-					"instanceId": "345",
-					"privateIP": "hbohome",
-					"state": "Active",
-					"tags":[{"region":"Asia Pacific"},{"Team":"cms"},{"Partner":"GoPro"},{"env":"dev"}]
-				},
-				{
-					"instanceId": "789",
-					"privateIP": "godaday",
-					"state":"Active",
-					"tags":[{"region":"Asia Pacific"},{"Team":"cms"},{"Partner":"Arena"},{"env":"dev"}]
-				},
-				{
-					"instanceId": "345",
-					"privateIP": "hbohom11e",
-					"state":"Active",
-					"tags":[{"region":"EU"},{"Team":"cms"},{"Partner":"wwe"},{"env":"dev"}]
-				}
-				];	
-				
-			};
+			
 			$scope.teamFilter = function() {
 				//alert( document.getElementById("region").value);
+				
+				var team =document.getElementById("team").value;
+				var partner=document.getElementById("partner").value;
+				var env=document.getElementById("env").value;
+				//if(team !=null &partner!=null && env!=null){
+					
+				if(angular.isDefined(team) && angular.isDefined(partner) && angular.isDefined(env)){
+				 $http.get("ec2/ec2instancedetails/"+team+"/"+partner+"/"+env).success( function(response) {
+				      $scope.gridOptions = response;
+				   });
+				}else{
+					 $scope.gridOptions=null;
+				}
+				
 				
 			};
 			$scope.partnerFilter = function() {
 				//alert( document.getElementById("partner").value);
 				
+				var team =document.getElementById("team").value;
+				var partner=document.getElementById("partner").value;
+				var env=document.getElementById("env").value;
+				
+				if(angular.isDefined(team) && angular.isDefined(partner) && angular.isDefined(env)){
+				 $http.get("ec2/ec2instancedetails/"+team+"/"+partner+"/"+env).success( function(response) {
+				      $scope.gridOptions = response;
+				   });
+				}else{
+					 $scope.gridOptions=null;
+				}
+				
 			};
 			$scope.envFilter = function() {
 				//alert( document.getElementById("env").value);
 				
+				var team =document.getElementById("team").value;
+				var partner=document.getElementById("partner").value;
+				var env=document.getElementById("env").value;
+				if(angular.isDefined(team) && angular.isDefined(partner) && angular.isDefined(env)){
+				 $http.get("ec2/ec2instancedetails/"+team+"/"+partner+"/"+env).success( function(response) {
+				      $scope.gridOptions = response;
+				   });
+				}else{
+					 $scope.gridOptions=null;
+				}
+				
 			};
+			
+			$scope.isValid = function(value) {
+			    return !value
+			}
 });
 		
