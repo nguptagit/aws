@@ -3,6 +3,7 @@ package com.aws.demo.controller;
 
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aws.demo.services.DropDownService;
 
 @RestController
-@RequestMapping("/ec2/")
+@RequestMapping("/static/ec2/")
 public class DropDownController {
 	
 	
@@ -22,7 +23,7 @@ public class DropDownController {
 
 	@ResponseStatus(value = org.springframework.http.HttpStatus.OK)
 	@RequestMapping (value="/dropdowndata",method = RequestMethod.GET , produces = MediaType.APPLICATION_JSON_VALUE)
-     public Map<String, Map<String, String[]>>  getDashBoardDropDownData(){
+     public JSONObject  getDashBoardDropDownData(){
 		
 		return dropDownService.getDashBoardDropDownData();
 	}

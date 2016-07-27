@@ -37,9 +37,9 @@
 		  
 		   <div class="form-group" style="float:left;width:10%;height:50px" >
               <label class="control-label" for="Country">Region:</label>
-              <select class="form-control input-lg" id="region" ng-change="regionFilter()"  ng-model="teams" 
-              ng-options="region for (region, teams) in regions track by region" >
+              <select class="form-control input-lg" id="region" ng-change="regionFilter()"  ng-model="region">
                 <option value=''>Select</option>
+                  <option  ng-repeat="(key, value) in regions" value="{{key}}"   ng-model="selected"   >{{value}}</option>
               </select>
             </div>
 			

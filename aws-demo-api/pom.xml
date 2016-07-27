@@ -17,6 +17,7 @@
 		<bigquery.version>v2-rev154-1.19.0</bigquery.version>
     	<google-api-client.version>1.19.0</google-api-client.version>
     	<project.appengine.version>1.8.3</project.appengine.version>
+    	<json-version>1.1.1</json-version>
 	</properties>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -37,6 +38,16 @@
  </plugins>
 	</build>
 	<dependencies>
+	
+	
+				<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>${json-version}</version>
+		</dependency>
+		
+	
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

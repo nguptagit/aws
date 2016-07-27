@@ -19,22 +19,13 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	
-	
+	<context:property-placeholder location="classpath:locsights.properties"/>
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	<bean id="awsProp"
-      class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		  <property name="locations">
-		    <list>
-		      <value>classpath*:aws_region.properties</value>
-		    </list>
-		  </property>
-	</bean>
-	
-<!-- 	<import resource="demo-persistence.xml" />
-	<import resource="demo-dao.xml" /> -->
+	<import resource="demo-persistence.xml" />
+	<import resource="demo-dao.xml" />
 	<import resource="demo-services.xml" />
- 
+	
 	
 </beans>		

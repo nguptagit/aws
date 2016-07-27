@@ -1,9 +1,19 @@
  
   var cmsModule = angular.module('myCms', ['ngTouch', 'ui.grid', 'ui.grid.autoResize']);
 		  
-		  cmsModule.controller('CMSController', function($scope) {
+		  cmsModule.controller('CMSController', function($scope,$http) {
+			  
+			  
+			  $http.get("ec2/dropdowndata").success( function(response) {
+				  
+				  
+			      $scope.regions = response.awsRegion; 
+			      $scope.teams = response.dropDowndata; 
+			     
+			      
+			   });
 	
-		  $scope.regions = {
+		 /* $scope.regions = {
                     'Asia Pacific':{
 							'CMS': {
 								'GoPro': ['Dev', 'QA', 'PRD'],
@@ -24,7 +34,7 @@
 								'WWE': ['Dev', 'QA', 'PRD'],  
 								}
 						}
-                };
+                };*/
 			 
 			 $scope.columnDefs = [
 					{ name:'instanceId', displayName:'Instance ID', width:100 },
