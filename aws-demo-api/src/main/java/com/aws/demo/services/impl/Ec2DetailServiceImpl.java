@@ -70,7 +70,7 @@ public class Ec2DetailServiceImpl implements Ec2DetailService {
                     e);
         }
         amazonEC2Client = new AmazonEC2Client(credentials);
-        amazonEC2Client.setEndpoint("ec2."+region+".amazonaws.com");
+        amazonEC2Client.setEndpoint(AwsConstant.INSTACE_NAME+"."+region+"."+AwsConstant.DOMAIN_NAME);
     }
 	
 	private static DescribeInstancesResult getDescribeInstancesResult(String team,String partner,String environment) throws Exception {
@@ -82,9 +82,9 @@ public class Ec2DetailServiceImpl implements Ec2DetailService {
 		partnervalue.add(partner);
 		List<String> environmentvalue = new ArrayList<String>();
 		environmentvalue.add(environment);
-		Filter teamFilter = new Filter("tag:Team", teamvalue);
-		Filter partnerfilter = new Filter("tag:partner", partnervalue);
-		Filter environmentfilter = new Filter("tag:environment", environmentvalue);
+		Filter teamFilter = new Filter(AwsConstant.TEAM_FILTER, teamvalue);
+		Filter partnerfilter = new Filter(AwsConstant.PARTNER_FILTER, partnervalue);
+		Filter environmentfilter = new Filter(AwsConstant.ENVIRONMENT_FILTER, environmentvalue);
 		
 		return amazonEC2Client.describeInstances(request.withFilters(teamFilter,partnerfilter,environmentfilter));
     }
