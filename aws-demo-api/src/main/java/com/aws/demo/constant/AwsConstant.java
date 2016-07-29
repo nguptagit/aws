@@ -9,4 +9,6 @@ public class AwsConstant {
 	public static final String ENVIRONMENT_FILTER = "tag:environment";
 	public static final String AWS_USER_PRIVATEKEY = "aws.user.privatekey";
     public static final String AWS_USER_SECRETKEY= "aws.user.secretkey";
+    public static final String INSTACE_NAME= "ec2";
+    public static final String DOMAIN_NAME= "amazonaws.com";
 }
