@@ -37,7 +37,8 @@
                 };*/
 			 
 			 $scope.columnDefs = [
-					{ name:'instanceId', displayName:'Instance ID', width:250 },
+					{ name:'instanceId', displayName:'Instance ID', width:250,
+						cellTemplate:'anchorTemplate.html' },					
 					{ name:'privateIP',displayName:'Private IP', width:150, pinnedLeft:true },
 					{ name:'state', width:150 },
 					{ name:'tags[0].value', displayName:'partner', width:150 },
@@ -46,6 +47,25 @@
 				];	
 			
 				 
+			 $scope.commandWindowPopup=function(id,$scope){
+					//alert('hi');
+					document.getElementById('light_'+id).style.display='block';
+					//document.getElementById('fade').style.display='block';
+					
+				};
+			$scope.closeWindowPopup=function(id,$scope){
+				//alert('hi');
+				document.getElementById('light_'+id).style.display='none';
+				//document.getElementById('fade').style.display='block';
+				
+			};
+			
+			$scope.runCommand=function(id,$scope){
+				alert('cming soon');
+				
+				//document.getElementById('fade').style.display='block';
+				
+			};
 			
 			$scope.teamFilter = function() {
 				//alert( document.getElementById("region").value);

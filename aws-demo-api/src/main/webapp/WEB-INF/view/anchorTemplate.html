@@ -1,0 +1,18 @@
+<div>
+	<a href=""
+		ng-click="grid.appScope.commandWindowPopup('{{row.entity.instanceId}}')">
+		{{row.entity.instanceId}} </a>
+	<div id="light_{{row.entity.instanceId}}" class="white_content">
+		<input type="text" id="command_box_{{row.entity.instanceId}}"
+			name="input" ng-model="command" required ng-trim="false" /> <a
+			href=""
+			ng-click="grid.appScope.runCommand('{{row.entity.instanceId}}')">Run</a>
+		<textarea id="command_out_{{row.entity.instanceId}}"
+			ng-model="command_out" disabled>
+ 
+</textarea>
+		<a href=""
+			ng-click="grid.appScope.closeWindowPopup('{{row.entity.instanceId}}')">Close</a>
+	</div>
+
+</div>

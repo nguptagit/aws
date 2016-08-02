@@ -11,4 +11,7 @@ public class AwsConstant {
     public static final String AWS_USER_SECRETKEY= "aws.user.secretkey";
     public static final String INSTACE_NAME= "ec2";
     public static final String DOMAIN_NAME= "amazonaws.com";
+    public static final String AWS_PEM_FILE= "CMS_INSTANCE_PER_FILE";
+    public static final String AWS_DEFAULT_USER= "ec2-user";
+    
 }
