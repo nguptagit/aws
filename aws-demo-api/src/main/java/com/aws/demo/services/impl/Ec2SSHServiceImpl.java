@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.resources.ec2.Instance;
@@ -25,6 +27,9 @@ import com.jcraft.jsch.Session;
  */
 @Service
 public class Ec2SSHServiceImpl implements Ec2SSHService {
+	
+	 @Autowired
+	private Environment env;
 
 	@Override
 	public ChannelExec getSSHChannel(Instance instance) {
@@ -33,7 +38,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 		JSch jsch=new JSch();
 		ChannelExec  channel =null;
 		try {
-			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName()+".pem","rajeev");
+			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName()+AwsConstant.AWS_PEM_FILE_EXTN,env.getProperty(AwsConstant.AWS_PASS_PHARSE));
 			jsch.setConfig("StrictHostKeyChecking", "no");
 			
 			Session session=jsch.getSession(AwsConstant.AWS_DEFAULT_USER, instance.getPublicIpAddress(), 22);
@@ -50,30 +55,35 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 	
 	@Override
 	public String getSSHChanneltest(Instance instance,String command) {
-		final String cmsPerFile = System.getenv(AwsConstant.AWS_PEM_FILE);
-		String commandExceutionResult="";
+		final String cmsPerFile = env.getProperty(AwsConstant.AWS_PEM_FILE);
+		StringBuffer commandExceutionResult= new StringBuffer();
+		
 		JSch jsch=new JSch();
 		ChannelExec  channel =null;
 		try {
-			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName()+".pem","rajeev");
+			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName()+AwsConstant.AWS_PEM_FILE_EXTN,env.getProperty(AwsConstant.AWS_PASS_PHARSE));
 			jsch.setConfig("StrictHostKeyChecking", "no");
 			
 			Session session=jsch.getSession(AwsConstant.AWS_DEFAULT_USER, instance.getPublicIpAddress(), 22);
 			session.connect();
-			
 			channel = (ChannelExec) session.openChannel("exec");
-			
-			
 		
 			channel.setCommand(command);
 			channel.setErrStream(System.err);
 			channel.connect();
 			
 			
+			
 			try {
-				InputStream input = channel.getInputStream();
-				commandExceutionResult=getStringFromInputStream(input);
 				
+				channel.getErrStream();
+				channel.getExitStatus();
+				
+				InputStream input = channel.getInputStream();
+			String 	commandResult=getStringFromInputStream(input);
+			String commandError=getStringFromInputStream(channel.getErrStream())	;
+			commandExceutionResult.append(commandResult).append("\n").append(commandError);
+				System.out.println(commandError);
 				System.out.println(commandExceutionResult);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -83,7 +93,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 		} catch (JSchException e) {
 			e.printStackTrace();
 		}
-		return commandExceutionResult;
+		return commandExceutionResult.toString();
 	}
 
 	@Override

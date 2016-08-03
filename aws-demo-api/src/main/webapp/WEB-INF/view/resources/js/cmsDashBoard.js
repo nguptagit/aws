@@ -13,28 +13,6 @@
 			      
 			   });
 	
-		 /* $scope.regions = {
-                    'Asia Pacific':{
-							'CMS': {
-								'GoPro': ['Dev', 'QA', 'PRD'],
-								'WWE': ['Dev', 'QA', 'PRD'],  
-								},
-								'CMSBUS': {
-								  'ARINA': ['Dev', 'QA', 'PRD'],
-								  'HBO': ['Dev', 'QA', 'PRD']
-								},
-								'CMSUI': {
-									'Times': ['Dev', 'QA', 'PRD'],
-									'TvToday': ['Dev', 'QA', 'PRD']
-								}
-						},
-					'EU':{
-						'CMS': {
-								'GoPro': ['Dev', 'QA', 'PRD'],
-								'WWE': ['Dev', 'QA', 'PRD'],  
-								}
-						}
-                };*/
 			 
 			 $scope.columnDefs = [
 					{ name:'instanceId', displayName:'Instance ID', width:250,
@@ -61,14 +39,18 @@
 			};
 			
 			$scope.runCommand=function(id,$scope){
-				alert('cming soon');
 				
-				//document.getElementById('fade').style.display='block';
+				var cmdCommand=document.getElementById('command_box_'+id).value;
+			
+				  $http.get("ec2/sshConnect/"+id+"/"+cmdCommand).success( function(response) {
+					  
+					  document.getElementById('command_out_'+id).value= response.data;
+				      
+				   });
 				
 			};
 			
 			$scope.teamFilter = function() {
-				//alert( document.getElementById("region").value);
 				
 				var team =document.getElementById("team").value;
 				var partner=document.getElementById("partner").value;
