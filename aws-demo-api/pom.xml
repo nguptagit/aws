@@ -463,6 +463,24 @@
 </dependency>
 
 
+
+<!-- https://mvnrepository.com/artifact/com.amazonaws.resources/aws-resources-core -->
+<!-- <dependency>
+    <groupId>com.amazonaws.resources</groupId>
+    <artifactId>aws-resources-core</artifactId>
+    <version>0.0.1</version>
+</dependency> -->
+
+<!-- https://mvnrepository.com/artifact/com.amazonaws.resources/aws-resources-ec2 -->
+<dependency>
+    <groupId>com.amazonaws.resources</groupId>
+    <artifactId>aws-resources-ec2</artifactId>
+    <version>0.0.1</version>
+</dependency>
+
+
+
+
 		
 </dependencies>
 

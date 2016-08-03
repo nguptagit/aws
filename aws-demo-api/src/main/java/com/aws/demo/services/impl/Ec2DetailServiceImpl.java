@@ -10,6 +10,11 @@ import org.springframework.core.env.Environment;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.resources.ServiceBuilder;
+import com.amazonaws.resources.ec2.EC2;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
@@ -88,4 +93,20 @@ public class Ec2DetailServiceImpl implements Ec2DetailService {
 		
 		return amazonEC2Client.describeInstances(request.withFilters(teamFilter,partnerfilter,environmentfilter));
     }
+
+	@Override
+	public com.amazonaws.resources.ec2.Instance getInstanceByInstanceId(String instanceId) {
+		EC2 ec2 = ServiceBuilder.forService(EC2.class)
+			    .withCredentials(new ProfileCredentialsProvider()).withEndpoint(AwsConstant.INSTACE_NAME+".us-west-2."+AwsConstant.DOMAIN_NAME)
+			   
+			    .build();
+		
+			   
+		
+		
+		com.amazonaws.resources.ec2.Instance instance=  ec2.getInstance(instanceId);
+		
+	
+		return instance;
+	}
 }

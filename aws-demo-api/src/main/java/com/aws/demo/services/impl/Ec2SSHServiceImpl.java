@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.amazonaws.services.ec2.model.Instance;
+import org.springframework.stereotype.Service;
+
+import com.amazonaws.resources.ec2.Instance;
 import com.aws.demo.constant.AwsConstant;
 import com.aws.demo.services.Ec2SSHService;
 import com.jcraft.jsch.ChannelExec;
@@ -21,6 +23,7 @@ import com.jcraft.jsch.Session;
  * @author rajeev.jha
  *
  */
+@Service
 public class Ec2SSHServiceImpl implements Ec2SSHService {
 
 	@Override
@@ -30,7 +33,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 		JSch jsch=new JSch();
 		ChannelExec  channel =null;
 		try {
-			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName(),"rajeev");
+			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName()+".pem","rajeev");
 			jsch.setConfig("StrictHostKeyChecking", "no");
 			
 			Session session=jsch.getSession(AwsConstant.AWS_DEFAULT_USER, instance.getPublicIpAddress(), 22);
@@ -43,6 +46,44 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 			e.printStackTrace();
 		}
 		return channel;
+	}
+	
+	@Override
+	public String getSSHChanneltest(Instance instance,String command) {
+		final String cmsPerFile = System.getenv(AwsConstant.AWS_PEM_FILE);
+		String commandExceutionResult="";
+		JSch jsch=new JSch();
+		ChannelExec  channel =null;
+		try {
+			jsch.addIdentity(cmsPerFile+File.separator+instance.getKeyName()+".pem","rajeev");
+			jsch.setConfig("StrictHostKeyChecking", "no");
+			
+			Session session=jsch.getSession(AwsConstant.AWS_DEFAULT_USER, instance.getPublicIpAddress(), 22);
+			session.connect();
+			
+			channel = (ChannelExec) session.openChannel("exec");
+			
+			
+		
+			channel.setCommand(command);
+			channel.setErrStream(System.err);
+			channel.connect();
+			
+			
+			try {
+				InputStream input = channel.getInputStream();
+				commandExceutionResult=getStringFromInputStream(input);
+				
+				System.out.println(commandExceutionResult);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			channel.disconnect();
+	    	session.disconnect();
+		} catch (JSchException e) {
+			e.printStackTrace();
+		}
+		return commandExceutionResult;
 	}
 
 	@Override
@@ -57,6 +98,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(commandExceutionResult);
 		return commandExceutionResult;
 	}
 
