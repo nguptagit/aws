@@ -21,6 +21,7 @@ public final class CharConstant {
     public static final String CLOSING_BRACE = ")";
     public static final String OPENING_BRACE = "(";
     public static final String DOT = ".";
+    public static final String NEXT_LINE = "\n";
 
     private CharConstant() {
     }

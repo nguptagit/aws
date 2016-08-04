@@ -10,6 +10,6 @@
 	<mvc:annotation-driven/>
 	<import resource="classpath:application-context.xml"/>
 	<context:component-scan base-package="com.aws.demo"/>
-	 <mvc:resources location="/WEB-INF/view/" mapping="/static/**"/> 
-	 <context:annotation-config/>
+	<mvc:resources location="/WEB-INF/view/" mapping="/static/**"/> 
+	<context:annotation-config/>
 </beans>

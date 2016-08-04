@@ -15,5 +15,6 @@ public class AwsConstant {
     public static final String AWS_DEFAULT_USER= "ec2-user";
     public static final String AWS_PASS_PHARSE="aws.user.passphrase";
     public static final String AWS_PEM_FILE_EXTN=".pem";
+    public static final String EXEC="exec";
     
 }

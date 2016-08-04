@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.amazonaws.resources.ec2.Instance;
 import com.aws.demo.constant.AwsConstant;
+import com.aws.demo.constant.CharConstant;
 import com.aws.demo.services.Ec2SSHService;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -44,7 +45,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 			Session session=jsch.getSession(AwsConstant.AWS_DEFAULT_USER, instance.getPublicIpAddress(), 22);
 			session.connect();
 			
-			channel = (ChannelExec) session.openChannel("exec");
+			channel = (ChannelExec) session.openChannel(AwsConstant.EXEC);
 			channel.connect();
 			
 		} catch (JSchException e) {
@@ -66,7 +67,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 			
 			Session session=jsch.getSession(AwsConstant.AWS_DEFAULT_USER, instance.getPublicIpAddress(), 22);
 			session.connect();
-			channel = (ChannelExec) session.openChannel("exec");
+			channel = (ChannelExec) session.openChannel(AwsConstant.EXEC);
 		
 			channel.setCommand(command);
 			channel.setErrStream(System.err);
@@ -82,7 +83,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 				InputStream input = channel.getInputStream();
 			String 	commandResult=getStringFromInputStream(input);
 			String commandError=getStringFromInputStream(channel.getErrStream())	;
-			commandExceutionResult.append(commandResult).append("\n").append(commandError);
+			commandExceutionResult.append(commandResult).append(CharConstant.NEXT_LINE).append(commandError);
 				System.out.println(commandError);
 				System.out.println(commandExceutionResult);
 			} catch (Exception e) {
@@ -120,7 +121,7 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 			br = new BufferedReader(new InputStreamReader(is));
 			while ((line = br.readLine()) != null) {
 				sb.append(line);
-				sb.append("\n");
+				sb.append(CharConstant.NEXT_LINE);
 			}
 
 		} catch (IOException e) {
