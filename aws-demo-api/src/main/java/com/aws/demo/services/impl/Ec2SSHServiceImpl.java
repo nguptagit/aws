@@ -82,9 +82,9 @@ public class Ec2SSHServiceImpl implements Ec2SSHService {
 				
 				InputStream input = channel.getInputStream();
 			String 	commandResult=getStringFromInputStream(input);
-			String commandError=getStringFromInputStream(channel.getErrStream())	;
-			commandExceutionResult.append(commandResult).append(CharConstant.NEXT_LINE).append(commandError);
-				System.out.println(commandError);
+			//String commandError=getStringFromInputStream(channel.getErrStream())	;
+			commandExceutionResult.append(commandResult).append(CharConstant.NEXT_LINE);
+			//	System.out.println(commandError);
 				System.out.println(commandExceutionResult);
 			} catch (Exception e) {
 				e.printStackTrace();

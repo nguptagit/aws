@@ -41,8 +41,15 @@
 			$scope.runCommand=function(id,$scope){
 				
 				var cmdCommand=document.getElementById('command_box_'+id).value;
+				var jsonObject={"linuxCommand": cmdCommand};
 			
-				  $http.get("ec2/sshConnect/"+id+"/"+cmdCommand).success( function(response) {
+				var valueStringify=JSON.stringify(jsonObject);
+				
+				
+				
+	    
+			
+				  $http.post("ec2/sshConnect?id="+id+"&command="+valueStringify).success( function(response) {
 					  
 					  document.getElementById('command_out_'+id).value= response.data;
 				      
